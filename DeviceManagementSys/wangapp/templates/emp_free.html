@@ -1,0 +1,82 @@
+{% extends 'emp_layout.html' %}
+
+
+{% block content %}
+    <div class="container">
+    <div style="margin-bottom: 10px" class="clearfix">
+        <a class="btn btn-primary" href="/emp/applied/">已申领设备</a>
+        <a class="btn btn-primary" href="/emp/applying/">审批中设备</a>
+
+
+        <div style="float: right;width: 300px">
+            <form method="get">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="设备类型" value={{ search_value }}>
+                    <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Search</button>
+                            </span>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            设备列表
+        </div>
+
+
+        <!-- Table -->
+        <table class="table table-bordered ">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>设备类型</th>
+                <th>序列号</th>
+                <th>设备购买时间</th>
+                <th>设备状态</th>
+                <th>操作</th>
+
+
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for obj in queryset %}
+                <tr>
+                    <th scope="row">{{ obj.id }}</th>
+                    <td>{{ obj.type }}</td>
+                    <td>{{ obj.deviceSeq }}</td>
+                    <td>{{ obj.purchaseTime}}</td>
+                    <td>{{ obj.get_state_display}}</td>
+
+                    <td>
+                        <a class="btn btn-primary btn-xs" href="/emp/{{obj.id}}/apply/">申领</a>
+
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {{ page_string }}
+        </ul>
+    </nav>
+    {#    <form method="get">#}
+    {#    <div class="input-group" style="width: 200px">#}
+    {#        <input name="page" type="text" class="form-control" placeholder="跳转">#}
+    {#        <span class="input-group-btn">#}
+    {#        <button class="btn btn-default" type="submit">跳转</button>#}
+    {#      </span>#}
+    {#    </div>#}
+    {#    </form>#}
+
+{% endblock %}
+
